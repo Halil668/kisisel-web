@@ -8,40 +8,107 @@ const SITE_DATA = {
   // ─── KİŞİSEL BİLGİLER ───────────────────────────────────────
   personal: {
     name: "KHALIL SAMADOV",
-    title: "Full-Stack Web Geliştirici",
-    tagline: "Temiz kod, güzel arayüzler ve kullanıcı odaklı deneyimler.",
+    title: "Full-Stack Web Geliştirici & Eğitmen",
+    tagline: "Temiz kod, güzel arayüzler, yapay zeka ve yazılım eğitimleri.",
     avatar: "assets/images/resim.jpg",   // kendi fotoğrafını buraya ekle
-    email: "semedovxelil259@gmail.com",               // ← değiştir
-    web3forms_key: "41c856f1-6f05-44e6-9732-6278487a4dd7",  // ← web3forms.com'dan al
+    email: "semedovxelil259@gmail.com",
+    web3forms_key: "41c856f1-6f05-44e6-9732-6278487a4dd7",
     social: {
-      github:   "https://github.com/Halil668",   // ← değiştir
-      linkedin: "https://linkedin.com/in/kullaniciadın", // ← değiştir
-      twitter:  ""   // boş bırakırsan ikon gösterilmez
+      github:   "https://github.com/Halil668",
+      linkedin: "https://linkedin.com/in/kullaniciadın",
+      twitter:  ""
     }
   },
 
   // ─── HAKKIMDA ────────────────────────────────────────────────
   about: {
-    bio: "Merhaba! Ben bir web geliştiriciyim. Kullanıcı deneyimini ön planda tutan, performanslı ve ölçeklenebilir web uygulamaları geliştiriyorum. Hem frontend hem de backend tarafında çalışarak tam kapsamlı projeler üretiyorum.",
-    bio2: "Yeni teknolojileri yakından takip ediyor, öğrendiklerimi açık kaynak projelerle toplulukla paylaşmaya çalışıyorum.",
+    bio: "Merhaba! Ben bir web geliştirici ve eğitmenim. Kullanıcı deneyimini ön planda tutan, performanslı ve ölçeklenebilir web uygulamaları geliştiriyorum. Aynı zamanda yazılım ve yapay zeka eğitimleri veriyorum.",
+    bio2: "Yeni teknolojileri yakından takip ediyor, öğrendiklerimi hem projelerimde hem de öğrencilerimle paylaşıyorum.",
     highlights: [
       { icon: "🚀", text: "3+ Yıl Deneyim" },
       { icon: "💼", text: "10+ Tamamlanan Proje" },
-      { icon: "🌍", text: "Açık Kaynak Katkıcısı" },
-      { icon: "📚", text: "Sürekli Öğrenme" }
+      { icon: "🤖", text: "Yapay Zeka Eğitmeni" },
+      { icon: "📚", text: "100+ Öğrenci" }
     ]
   },
 
+  // ─── YAZILIM DERSLERİ (YENİ) ─────────────────────────────────
+  courses: [
+    {
+      id: 1,
+      title: "Modern Web Geliştirme",
+      description: "Sıfırdan ileri seviyeye HTML, CSS, JavaScript, React ve Node.js ile full-stack web geliştirme.",
+      level: "Başlangıç - İleri",
+      duration: "40 Saat",
+      price: "Ücretsiz Başla",
+      icon: "💻",
+      color: "#e0e7ff",
+      features: ["Canlı Dersler", "Proje Tabanlı", "Sertifika"]
+    },
+    {
+      id: 2,
+      title: "Frontend Ustalık",
+      description: "Modern frontend teknolojileri: React, Next.js, Tailwind CSS, animasyonlar ve performans optimizasyonu.",
+      level: "Orta - İleri",
+      duration: "30 Saat",
+      price: "Ücretsiz Başla",
+      icon: "🎨",
+      color: "#dbeafe",
+      features: ["Uygulamalı", "Portfolyo Projeleri", "Mentorluk"]
+    },
+    {
+      id: 3,
+      title: "Backend & API Geliştirme",
+      description: "Node.js, Express, MongoDB, PostgreSQL, RESTful API ve kimlik doğrulama.",
+      level: "Orta",
+      duration: "35 Saat",
+      price: "Ücretsiz Başla",
+      icon: "⚙️",
+      color: "#d1fae5",
+      features: ["Veritabanı", "Güvenlik", "Canlı Proje"]
+    }
+  ],
+
+  // ─── YAPAY ZEKA EĞİTİMLERİ (YENİ) ───────────────────────────
+  aiEducation: {
+    title: "Yapay Zeka Eğitimleri",
+    subtitle: "Geleceğin teknolojisini bugün öğrenin",
+    description: "Yapay zeka ve makine öğrenmesi alanında uygulamalı eğitimler veriyorum. Gerçek projelerle öğrenin.",
+    offerings: [
+      {
+        icon: "🧠",
+        title: "Makine Öğrenmesine Giriş",
+        description: "Temel algoritmalar, veri ön işleme, model eğitimi ve değerlendirme."
+      },
+      {
+        icon: "🤖",
+        title: "Derin Öğrenme",
+        description: "Yapay sinir ağları, TensorFlow, Keras ile uygulamalı projeler."
+      },
+      {
+        icon: "💬",
+        title: "Doğal Dil İşleme",
+        description: "Metin sınıflandırma, duygu analizi, chatbot geliştirme."
+      },
+      {
+        icon: "🖼️",
+        title: "Bilgisayarlı Görü",
+        description: "Görüntü işleme, nesne tanıma, OpenCV ile uygulamalar."
+      }
+    ],
+    ctaText: "Yapay Zeka Derslerine Katıl",
+    ctaLink: "#contact"
+  },
+
   // ─── PROJELER ────────────────────────────────────────────────
-  // Yeni proje eklemek için bu diziye yeni bir obje yapıştır.
   projects: [
     {
       id: 1,
       title: "E-Ticaret Platformu",
       description: "React ve Node.js ile geliştirilmiş, sepet, ödeme ve admin paneli içeren tam kapsamlı alışveriş sitesi.",
       tags: ["React", "Node.js", "MongoDB", "Stripe"],
-      image: "",           // "assets/images/projects/ecommerce.jpg"
-      color: "#e0e7ff",    // kart arka plan rengi (isteğe bağlı)
+      image: "",
+      color: "#e0e7ff",
       liveUrl: "https://proje.vercel.app",
       githubUrl: "https://github.com/Halil668",
       featured: true
@@ -81,7 +148,7 @@ const SITE_DATA = {
     }
   ],
 
-  // ─── YETENEKLer ──────────────────────────────────────────────
+  // ─── YETENEKLER ──────────────────────────────────────────────
   skills: [
     {
       category: "Frontend",
@@ -97,6 +164,11 @@ const SITE_DATA = {
       category: "Araçlar & DevOps",
       icon: "🛠️",
       items: ["Git & GitHub", "VS Code", "Figma", "Vercel", "Docker", "Linux"]
+    },
+    {
+      category: "Yapay Zeka & Veri Bilimi",
+      icon: "🧠",
+      items: ["Python", "TensorFlow", "Scikit-learn", "OpenCV", "NLP", "Veri Analizi"]
     }
   ]
 };

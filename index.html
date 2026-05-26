@@ -1,52 +1,312 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Eğitmen Halil (Khalil Samadov) — Full-Stack Web Geliştirici</title>
-  <meta name="description" content="Eğitmen Halil (Khalil Samadov) ile modern, performanslı ve kullanıcı odaklı web projeleri geliştirin. Profesyonel yazılım çözümleri ve portfolyo.">
-  <meta name="author" content="KHALIL SAMADOV">
-  <meta name="keywords" content="egitmenhalil, eğitmen halil, egitmen halil samadov, khalil samadov, halil samadov, web geliştirici, full-stack, frontend, backend, portfolyo">
+  <title>Eğitmen Halil | Yazılım & Yapay Zeka Eğitimleri</title>
+  <meta name="description" content="Profesyonel yazılım ve yapay zeka eğitimleri. Full-stack web geliştirme, yapay zeka, makine öğrenmesi dersleri. Uygulamalı eğitim, sertifika programı.">
+  <meta name="keywords" content="yazılım dersleri, yapay zeka eğitimi, web geliştirme, full-stack, makine öğrenmesi, halil samadov">
+  <meta name="author" content="Khalil Samadov">
   <meta name="robots" content="index, follow">
 
-  <meta name="google-site-verification" content="5_1Wqk18LjRlTbXW0upQgZh5dSTcfR4teeONB-C7InM" />
-
-  <meta property="og:title" content="Eğitmen Halil — Full-Stack Web Geliştirici">
-  <meta property="og:description" content="Temiz kod, güzel arayüzler ve kullanıcı odaklı deneyimler üretiyorum.">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Eğitmen Halil | Yazılım & Yapay Zeka Eğitimleri">
+  <meta property="og:description" content="Profesyonel yazılım ve yapay zeka eğitimleri. Sertifika programı, uygulamalı dersler.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://egitmenhalil.com">
-  <meta property="og:image" content="https://egitmenhalil.com/assets/images/og-image.jpg">
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Font Awesome 6 (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Ana CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="navbar"></div>
-  <div id="hero"></div>
-  <div id="about"></div>
-  <div id="projects"></div>
-  <div id="skills"></div>
-  <div id="contact"></div>
-  <div id="footer"></div>
+  <!-- ========== PRELOADER ========== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-spinner"></div>
+    <p>Yükleniyor...</p>
+  </div>
 
-  <a href="https://wa.me/905550957742?text=Merhaba%20Halil%20Hocam,%20sitenizden%20ula%C5%9F%C4%B1yorum.%20E%C4%9Fitimleriniz%20hakk%C4%B1nda%20bilgi%20alabilir%20miyim?" 
-     class="whatsapp-float" 
-     target="_blank" 
-     rel="noopener noreferrer" 
-     title="WhatsApp ile İletişime Geçin">
-    <svg viewBox="0 0 448 512" width="32" height="32" class="whatsapp-icon">
-      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.6-2.8-23.5-8.7-44.7-27.6-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.6-6.5 8.3-9.7 2.8-3.2 3.7-5.6 5.6-9.3 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.6 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
-    </svg>
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="logo">H<span>.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Ana Sayfa</a></li>
+        <li><a href="#about">Hakkımda</a></li>
+        <li><a href="#courses">Yazılım Dersleri</a></li>
+        <li><a href="#ai">Yapay Zeka</a></li>
+        <li><a href="#projects">Projeler</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Dark/Light Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <a href="quiz.html" class="btn-quiz-nav">
+          <i class="fas fa-brain"></i> Sınava Gir
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Ana Sayfa</a>
+    <a href="#about">Hakkımda</a>
+    <a href="#courses">Yazılım Dersleri</a>
+    <a href="#ai">Yapay Zeka</a>
+    <a href="#projects">Projeler</a>
+    <a href="#contact">İletişim</a>
+    <a href="quiz.html" class="mobile-quiz-btn"><i class="fas fa-brain"></i> Sınava Gir</a>
+  </div>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+        <div class="hero-badge">
+          <span class="badge-dot"></span> Hoş Geldiniz
+        </div>
+        <h1 class="hero-title">
+          <span class="gradient-text">Yazılım & Yapay Zeka</span><br>
+          Eğitmeniniz Halil
+        </h1>
+        <p class="hero-desc">
+          Profesyonel yazılım geliştirme ve yapay zeka eğitimleri ile kariyerinizde bir sonraki seviyeye geçin. 
+          Uygulamalı dersler, gerçek projeler ve uluslararası sertifika.
+        </p>
+        <div class="hero-buttons">
+          <a href="#courses" class="btn btn-primary">
+            <i class="fas fa-graduation-cap"></i> Hemen Başla
+          </a>
+          <a href="quiz.html" class="btn btn-outline">
+            <i class="fas fa-brain"></i> Bilgi Testi
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number" data-target="500">0</span>
+            <span class="stat-label">Öğrenci</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" data-target="1200">0</span>
+            <span class="stat-label">Ders Saati</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-label">Başarı Oranı</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+        <div class="hero-avatar">
+          <div class="avatar-ring"></div>
+          <div class="avatar-inner">
+            <i class="fas fa-chalkboard-user"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT SECTION ========== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Hakkımda</span>
+        <h2 class="section-title">Kim Olduğumu<br><span class="gradient-text">Biraz Anlatayım</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-content" data-aos="fade-right">
+          <p>Merhaba! Ben <strong>Khalil Samadov</strong>, full-stack web geliştirici ve eğitmen. 3+ yıllık yazılım deneyimimin yanında, yapay zeka alanında da eğitimler veriyorum.</p>
+          <p>100'den fazla öğrenciye yazılım ve yapay zeka alanında mentorluk yaptım. Öğrencilerim Türkiye'nin önde gelen teknoloji şirketlerinde çalışıyor veya kendi girişimlerini kuruyor.</p>
+          <div class="about-features">
+            <div class="feature"><i class="fas fa-check-circle"></i> 3+ Yıl Deneyim</div>
+            <div class="feature"><i class="fas fa-check-circle"></i> 100+ Öğrenci</div>
+            <div class="feature"><i class="fas fa-check-circle"></i> 10+ Tamamlanan Proje</div>
+            <div class="feature"><i class="fas fa-check-circle"></i> Uluslararası Sertifika</div>
+          </div>
+          <a href="#contact" class="btn btn-primary">İletişime Geç <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="about-stats" data-aos="fade-left">
+          <div class="stat-card">
+            <i class="fas fa-code"></i>
+            <div>
+              <span class="stat-value">10+</span>
+              <span class="stat-name">Proje</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <div>
+              <span class="stat-value">100+</span>
+              <span class="stat-name">Öğrenci</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span class="stat-value">1200+</span>
+              <span class="stat-name">Ders Saati</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-certificate"></i>
+            <div>
+              <span class="stat-value">5</span>
+              <span class="stat-name">Sertifika</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COURSES SECTION (Yazılım Dersleri) ========== -->
+  <section class="courses" id="courses">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Yazılım Eğitimleri</span>
+        <h2 class="section-title">En Popüler<br><span class="gradient-text">Yazılım Dersleri</span></h2>
+        <p class="section-desc">Sıfırdan ileri seviyeye kadar tüm seviyelere uygun, uygulamalı yazılım dersleri.</p>
+      </div>
+      <div class="courses-grid" id="coursesGrid"></div>
+      <div class="search-box" data-aos="fade-up">
+        <i class="fas fa-search"></i>
+        <input type="text" id="courseSearch" placeholder="Ders ara... (React, Python, JavaScript...)">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AI EDUCATION SECTION (Yapay Zeka) ========== -->
+  <section class="ai-education" id="ai">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Yapay Zeka</span>
+        <h2 class="section-title">Yapay Zeka<br><span class="gradient-text">Eğitimleri</span></h2>
+        <p class="section-desc">Geleceğin teknolojisini bugün öğrenin. Uygulamalı yapay zeka ve makine öğrenmesi dersleri.</p>
+      </div>
+      <div class="ai-grid" id="aiGrid"></div>
+      <div class="ai-cta" data-aos="fade-up">
+        <a href="apply.html?course=ai" class="btn btn-primary btn-large">
+          <i class="fas fa-robot"></i> Yapay Zeka Derslerine Katıl
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROJECTS SECTION ========== -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">Portfolyo</span>
+        <h2 class="section-title">Son<br><span class="gradient-text">Projelerim</span></h2>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT SECTION ========== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag">İletişim</span>
+        <h2 class="section-title">Bana<br><span class="gradient-text">Ulaşın</span></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info" data-aos="fade-right">
+          <h3>Birlikte Çalışalım</h3>
+          <p>Yazılım eğitimi, yapay zeka danışmanlığı veya proje teklifleriniz için bana ulaşabilirsiniz.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>semedovxelil259@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-whatsapp"></i>
+              <span>+90 555 095 77 42</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>İstanbul, Türkiye</span>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://github.com/Halil668" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="contact-form" data-aos="fade-left">
+          <form id="contactForm">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Ad Soyad" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="E-posta" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="subject" placeholder="Konu">
+            </div>
+            <div class="form-group">
+              <textarea name="message" rows="5" placeholder="Mesajınız..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-paper-plane"></i> Mesaj Gönder
+            </button>
+            <div id="formStatus" class="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>Halil<span>.</span></h3>
+          <p>Yazılım & Yapay Zeka Eğitmeni</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Ana Sayfa</a>
+          <a href="#about">Hakkımda</a>
+          <a href="#courses">Dersler</a>
+          <a href="#ai">Yapay Zeka</a>
+          <a href="#contact">İletişim</a>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2026 Khalil Samadov. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/905550957742?text=Merhaba%20Halil%20Hocam,%20sitenizden%20ula%C5%9F%C4%B1yorum.%20E%C4%9Fitimleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." 
+     class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="data.js"></script>
   <script src="main.js"></script>
-  <script defer src="/_vercel/insights/script.js"></script>
-
 </body>
 </html>

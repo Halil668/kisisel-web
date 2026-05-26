@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yazılım Bilgi Sınavı | Eğitmen Halil</title>
+  <meta name="description" content="Yazılım geliştirme ve yapay zeka bilgini test et. 10 soruluk profesyonel sınav, sonuçlarını gör ve PDF çıktı al.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Quiz Sayfası Özel Stilleri */
+    .quiz-container {
+      max-width: 900px;
+      margin: 120px auto 60px;
+      padding: 0 20px;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .quiz-header h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-header p {
+      color: var(--text-secondary);
+      font-size: 18px;
+    }
+
+    .quiz-progress {
+      background: var(--bg-secondary);
+      border-radius: 60px;
+      height: 8px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-bar {
+      background: linear-gradient(90deg, var(--accent), #a855f7);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 60px;
+    }
+
+    .quiz-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 40px;
+      margin-bottom: 30px;
+      transition: var(--transition);
+    }
+
+    .question-text {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      line-height: 1.4;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .option:hover {
+      border-color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    .option.selected {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .option-letter {
+      width: 36px;
+      height: 36px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .option.selected .option-letter {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .option-text {
+      flex: 1;
+      font-size: 16px;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .quiz-nav .btn {
+      flex: 1;
+      justify-content: center;
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .result-score {
+      font-size: 72px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', monospace;
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 20px 0;
+    }
+
+    .result-message {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .result-answers {
+      text-align: left;
+      margin: 40px 0;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .answer-item {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .answer-correct {
+      color: #10b981;
+    }
+
+    .answer-wrong {
+      color: #ef4444;
+    }
+
+    .result-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-to-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .back-to-home:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .quiz-card { padding: 24px; }
+      .question-text { font-size: 18px; }
+      .result-card { padding: 30px; }
+      .result-score { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-to-home">
+    <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+  </a>
+
+  <div class="quiz-container" id="quizContainer">
+    <div class="quiz-header">
+      <span class="section-tag"><i class="fas fa-brain"></i> Bilgi Testi</span>
+      <h1>Yazılım & Yapay Zeka<br><span class="gradient-text">Sınavı</span></h1>
+      <p>10 soruluk bilgini test et, sonucunu gör ve sertifikanı al!</p>
+    </div>
+
+    <!-- Sınav Alanı -->
+    <div id="quizArea">
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar" id="progressBar"></div>
+      </div>
+      <div class="quiz-stats">
+        <span><i class="fas fa-question-circle"></i> Soru <span id="currentQ">1</span>/<span id="totalQ">10</span></span>
+        <span><i class="fas fa-check-circle"></i> Cevaplanan: <span id="answeredCount">0</span></span>
+      </div>
+      <div class="quiz-card" id="questionCard">
+        <div class="question-text" id="questionText"></div>
+        <div class="options-list" id="optionsList"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-outline" id="prevBtn" disabled><i class="fas fa-chevron-left"></i> Önceki</button>
+        <button class="btn btn-primary" id="nextBtn">Sonraki <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Sonuç Alanı -->
+    <div id="resultArea" class="hidden">
+      <div class="result-card">
+        <i class="fas fa-chart-line" style="font-size: 48px; color: var(--accent);"></i>
+        <h2>Sınav Sonucun</h2>
+        <div class="result-score" id="finalScore">0/10</div>
+        <div class="result-message" id="resultMessage"></div>
+        <div class="result-answers" id="resultAnswers"></div>
+        <div class="result-buttons">
+          <button class="btn btn-outline" id="restartQuiz"><i class="fas fa-redo"></i> Tekrar Dene</button>
+          <button class="btn btn-primary" id="downloadPDF"><i class="fas fa-file-pdf"></i> PDF Çıktı Al</button>
+          <a href="apply.html" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">
+            <i class="fas fa-certificate"></i> Sertifika Başvurusu
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // ========== SORULAR ==========
+    const QUIZ_QUESTIONS = [
+      {
+        text: "HTML nedir?",
+        options: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"],
+        correct: 0
+      },
+      {
+        text: "CSS'te 'flexbox' ne işe yarar?",
+        options: ["Veritabanı bağlantısı kurmak", "Duyarlı (responsive) düzen oluşturmak", "Animasyon yapmak", "Form doğrulama yapmak"],
+        correct: 1
+      },
+      {
+        text: "JavaScript'te 'console.log()' ne yapar?",
+        options: ["Konsola mesaj yazdırır", "Değişken tanımlar", "Döngü oluşturur", "Fonksiyon çağırır"],
+        correct: 0
+      },
+      {
+        text: "React.js hangi amaçla kullanılır?",
+        options: ["Backend API geliştirme", "Veritabanı yönetimi", "Kullanıcı arayüzü (UI) geliştirme", "Sunucu yönetimi"],
+        correct: 2
+      },
+      {
+        text: "Yapay zeka alanında 'NLP' neyin kısaltmasıdır?",
+        options: ["Neural Language Processing", "Natural Language Processing", "Network Learning Protocol", "Non-Linear Programming"],
+        correct: 1
+      },
+      {
+        text: "Python'da bir listeye eleman eklemek için hangi metod kullanılır?",
+        options: ["push()", "add()", "append()", "insert()"],
+        correct: 2
+      },
+      {
+        text: "Makine öğrenmesinde 'supervised learning' nedir?",
+        options: ["Etiketlenmiş veri ile öğrenme", "Etiketsiz veri ile öğrenme", "Ödül-ceza sistemi ile öğrenme", "Hiçbiri"],
+        correct: 0
+      },
+      {
+        text: "Git'te değişiklikleri kaydetmek için hangi komut kullanılır?",
+        options: ["git save", "git commit", "git push", "git add"],
+        correct: 1
+      },
+      {
+        text: "REST API'de GET metodu ne işe yarar?",
+        options: ["Veri silmek", "Veri güncellemek", "Veri okumak/çekmek", "Veri eklemek"],
+        correct: 2
+      },
+      {
+        text: "TensorFlow hangi alanda kullanılır?",
+        options: ["Web tasarım", "Veritabanı", "Derin öğrenme", "Oyun geliştirme"],
+        correct: 2
+      }
+    ];
+
+    // State
+    let currentQuestionIndex = 0;
+    let userAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
+    let quizCompleted = false;
+
+    // DOM Elements
+    const quizArea = document.getElementById('quizArea');
+    const resultArea = document.getElementById('resultArea');
+    const questionText = document.getElementById('questionText');
+    const optionsList = document.getElementById('optionsList');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressBar = document.getElementById('progressBar');
+    const currentQSpan = document.getElementById('currentQ');
+    const totalQSpan = document.getElementById('totalQ');
+    const answeredCountSpan = document.getElementById('answeredCount');
+
+    totalQSpan.textContent = QUIZ_QUESTIONS.length;
+
+    function updateProgress() {
+      const answered = userAnswers.filter(a => a !== null).length;
+      answeredCountSpan.textContent = answered;
+      const progress = (answered / QUIZ_QUESTIONS.length) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function renderQuestion() {
+      const q = QUIZ_QUESTIONS[currentQuestionIndex];
+      questionText.textContent = `${currentQuestionIndex + 1}. ${q.text}`;
+      
+      optionsList.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const isSelected = userAnswers[currentQuestionIndex] === idx;
+        const optionDiv = document.createElement('div');
+        optionDiv.className = `option ${isSelected ? 'selected' : ''}`;
+        optionDiv.innerHTML = `
+          <div class="option-letter">${String.fromCharCode(65 + idx)}</div>
+          <div class="option-text">${opt}</div>
+        `;
+        optionDiv.onclick = () => selectAnswer(idx);
+        optionsList.appendChild(optionDiv);
+      });
+
+      currentQSpan.textContent = currentQuestionIndex + 1;
+      prevBtn.disabled = currentQuestionIndex === 0;
+      
+      if (currentQuestionIndex === QUIZ_QUESTIONS.length - 1) {
+        nextBtn.innerHTML = 'Bitir <i class="fas fa-check"></i>';
+      } else {
+        nextBtn.innerHTML = 'Sonraki <i class="fas fa-chevron-right"></i>';
+      }
+    }
+
+    function selectAnswer(answerIndex) {
+      userAnswers[currentQuestionIndex] = answerIndex;
+      updateProgress();
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < QUIZ_QUESTIONS.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function finishQuiz() {
+      const allAnswered = userAnswers.every(a => a !== null);
+      if (!allAnswered) {
+        alert('Lütfen tüm soruları cevaplayın!');
+        return;
+      }
+      
+      let correctCount = 0;
+      QUIZ_QUESTIONS.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) correctCount++;
+      });
+      
+      const score = correctCount;
+      const percentage = (score / QUIZ_QUESTIONS.length) * 100;
+      
+      let message = '';
+      if (percentage >= 80) message = '🎉 Harika! Yapay zeka ve yazılım konusunda çok başarılısın! Sertifika almaya hak kazandın.';
+      else if (percentage >= 60) message = '👍 İyi! Biraz daha pratikle mükemmel olacaksın. Derslerimize katılmayı düşünebilirsin.';
+      else message = '📚 Gelişime açıksın! Profesyonel yazılım derslerimizle bilgini artırabilirsin.';
+      
+      document.getElementById('finalScore').innerHTML = `${score}/${QUIZ_QUESTIONS.length}<span style="font-size: 20px;"> (${percentage}%)</span>`;
+      document.getElementById('resultMessage').innerHTML = message;
+      
+      // Sonuç detayları
+      const answersHtml = QUIZ_QUESTIONS.map((q, idx) => {
+        const isCorrect = userAnswers[idx] === q.correct;
+        const userAnswerText = userAnswers[idx] !== null ? q.options[userAnswers[idx]] : 'Cevaplanmadı';
+        const correctAnswerText = q.options[q.correct];
+        return `
+          <div class="answer-item">
+            <div class="${isCorrect ? 'answer-correct' : 'answer-wrong'}" style="font-size: 20px; min-width: 40px;">
+              ${isCorrect ? '✓' : '✗'}
+            </div>
+            <div style="flex: 1;">
+              <strong>Soru ${idx + 1}:</strong> ${q.text}<br>
+              <span style="color: var(--text-muted); font-size: 13px;">
+                Senin cevabın: ${userAnswerText}<br>
+                Doğru cevap: ${correctAnswerText}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      document.getElementById('resultAnswers').innerHTML = answersHtml;
+      
+      quizArea.classList.add('hidden');
+      resultArea.classList.remove('hidden');
+      quizCompleted = true;
+      
+      // Kaydet
+      localStorage.setItem('quizScore', score);
+      localStorage.setItem('quizTotal', QUIZ_QUESTIONS.length);
+    }
+
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      userAnswers = new Array(QUIZ_QUESTIONS.length).fill(null);
+      quizCompleted = false;
+      updateProgress();
+      quizArea.classList.remove('hidden');
+      resultArea.classList.add('hidden');
+      renderQuestion();
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('resultArea');
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `Sinav_Sonucu_${new Date().toISOString().slice(0, 19)}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    // Event Listeners
+    prevBtn.addEventListener('click', prevQuestion);
+    nextBtn.addEventListener('click', nextQuestion);
+    document.getElementById('restartQuiz').addEventListener('click', restartQuiz);
+    document.getElementById('downloadPDF').addEventListener('click', downloadPDF);
+
+    // Dark/Light Mode Senkronizasyonu
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    // Başlat
+    renderQuestion();
+    updateProgress();
+  </script>
+</body>
+</html>
