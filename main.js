@@ -1,5 +1,5 @@
 // ============================================================
-//  main.js — TAM VE EKSİKSİZ (RESİM GÖSTEREN GÜNCEL SÜRÜM)
+//  main.js — DİL DROPDOWN + RANDEVU MODAL (GÜNCEL)
 // ============================================================
 
 // PRELOADER
@@ -10,6 +10,97 @@ window.addEventListener('load', () => {
     setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 800);
   }
 });
+
+// ========== DİL DEĞİŞTİRME SİSTEMİ (DROPDOWN) ==========
+let currentLang = 'tr';
+
+function loadLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('selectedLang', lang);
+  
+  // Dil adını güncelle
+  const langNames = { tr: 'Türkçe', en: 'English', ru: 'Русский', az: 'Azərbaycanca' };
+  const selectedLangText = document.getElementById('selectedLangText');
+  if (selectedLangText) selectedLangText.textContent = langNames[lang];
+  
+  if (typeof translations !== 'undefined') {
+    const texts = translations[lang];
+    document.querySelectorAll('[data-key]').forEach(element => {
+      const key = element.getAttribute('data-key');
+      if (texts[key]) {
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+          element.placeholder = texts[key];
+        } else {
+          element.innerHTML = texts[key];
+        }
+      }
+    });
+  }
+}
+
+function initLanguage() {
+  const savedLang = localStorage.getItem('selectedLang') || 'tr';
+  
+  // Dropdown buton ve menü
+  const dropdownBtn = document.getElementById('langDropdownBtn');
+  const dropdownMenu = document.getElementById('langDropdownMenu');
+  const langOptions = document.querySelectorAll('.lang-option');
+  
+  if (dropdownBtn && dropdownMenu) {
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('show');
+    });
+    
+    // Sayfaya tıklayınca kapat
+    document.addEventListener('click', () => {
+      dropdownMenu.classList.remove('show');
+    });
+    
+    dropdownMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+  
+  langOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const lang = option.getAttribute('data-lang');
+      loadLanguage(lang);
+      const menu = document.getElementById('langDropdownMenu');
+      if (menu) menu.classList.remove('show');
+    });
+  });
+  
+  loadLanguage(savedLang);
+}
+
+// ========== RANDEVU MODAL SİSTEMİ ==========
+function initAppointmentModal() {
+  const modal = document.getElementById('appointmentModal');
+  const openBtn = document.getElementById('openAppointmentModal');
+  const closeBtn = document.getElementById('closeModal');
+  
+  if (!modal || !openBtn) return;
+  
+  openBtn.addEventListener('click', () => {
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+  }
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+}
 
 // DARK MODE
 function initTheme() {
@@ -29,7 +120,7 @@ function initTheme() {
   });
 }
 
-// NAVBAR RENDER
+// NAVBAR RENDER (DROPDOWN VERSİYONU)
 function renderNav() {
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
@@ -37,16 +128,27 @@ function renderNav() {
     <div class="container">
       <a href="#" class="logo">H<span>.</span></a>
       <ul class="nav-links">
-        <li><a href="#home" class="active">Ana Sayfa</a></li>
-        <li><a href="#about">Hakkımda</a></li>
-        <li><a href="#courses">Yazılım Dersleri</a></li>
-        <li><a href="#ai">Yapay Zeka</a></li>
-        <li><a href="#projects">Projeler</a></li>
-        <li><a href="#contact">İletişim</a></li>
+        <li><a href="#home" class="active" data-key="nav_home">Ana Sayfa</a></li>
+        <li><a href="#about" data-key="nav_about">Hakkımda</a></li>
+        <li><a href="#courses" data-key="nav_courses">Yazılım Dersleri</a></li>
+        <li><a href="#ai" data-key="nav_ai">Yapay Zeka</a></li>
+        <li><a href="#projects" data-key="nav_projects">Projeler</a></li>
+        <li><a href="#contact" data-key="nav_contact">İletişim</a></li>
       </ul>
       <div class="nav-actions">
+        <div class="lang-dropdown">
+          <button class="lang-dropdown-btn" id="langDropdownBtn">
+            <i class="fas fa-globe"></i> <span id="selectedLangText">Türkçe</span> <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-option" data-lang="tr">🇹🇷 Türkçe</button>
+            <button class="lang-option" data-lang="en">🇬🇧 English</button>
+            <button class="lang-option" data-lang="ru">🇷🇺 Русский</button>
+            <button class="lang-option" data-lang="az">🇦🇿 Azərbaycanca</button>
+          </div>
+        </div>
         <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <a href="quiz.html" class="btn-quiz-nav"><i class="fas fa-brain"></i> Sınava Gir</a>
+        <a href="quiz.html" class="btn-quiz-nav"><i class="fas fa-brain"></i> <span data-key="quiz_btn">Sınava Gir</span></a>
         <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
       </div>
     </div>
@@ -58,7 +160,7 @@ function renderNav() {
     mobileMenu.className = 'mobile-menu';
     document.body.appendChild(mobileMenu);
   }
-  mobileMenu.innerHTML = `<a href="#home">Ana Sayfa</a><a href="#about">Hakkımda</a><a href="#courses">Yazılım Dersleri</a><a href="#ai">Yapay Zeka</a><a href="#projects">Projeler</a><a href="#contact">İletişim</a><a href="quiz.html" class="mobile-quiz-btn"><i class="fas fa-brain"></i> Sınava Gir</a>`;
+  mobileMenu.innerHTML = `<a href="#home" data-key="nav_home">Ana Sayfa</a><a href="#about" data-key="nav_about">Hakkımda</a><a href="#courses" data-key="nav_courses">Yazılım Dersleri</a><a href="#ai" data-key="nav_ai">Yapay Zeka</a><a href="#projects" data-key="nav_projects">Projeler</a><a href="#contact" data-key="nav_contact">İletişim</a><a href="quiz.html" class="mobile-quiz-btn"><i class="fas fa-brain"></i> <span data-key="quiz_btn">Sınava Gir</span></a>`;
 }
 
 // COURSES RENDER
@@ -124,42 +226,37 @@ function renderAbout() {
   if (!about) return;
   container.innerHTML = `
     <div class="container">
-      <div class="section-header"><span class="section-tag">Hakkımda</span><h2 class="section-title">Kim Olduğumu<br><span class="gradient-text">Biraz Anlatayım</span></h2></div>
+      <div class="section-header"><span class="section-tag" data-key="about_tag">Hakkımda</span><h2 class="section-title"><span data-key="about_title1">Kim Olduğumu</span><br><span class="gradient-text" data-key="about_title2">Biraz Anlatayım</span></h2></div>
       <div class="about-grid">
-        <div class="about-content"><p>${about.bio}</p><p>${about.bio2}</p><div class="about-features">${about.highlights.map(h => `<div class="feature"><i class="fas fa-check-circle"></i> ${h.text}</div>`).join('')}</div><a href="#contact" class="btn btn-primary">İletişime Geç <i class="fas fa-arrow-right"></i></a></div>
-        <div class="about-stats"><div class="stat-card"><i class="fas fa-code"></i><div><span class="stat-value">10+</span><span class="stat-name">Proje</span></div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-value">100+</span><span class="stat-name">Öğrenci</span></div></div><div class="stat-card"><i class="fas fa-clock"></i><div><span class="stat-value">1200+</span><span class="stat-name">Ders Saati</span></div></div><div class="stat-card"><i class="fas fa-certificate"></i><div><span class="stat-value">5</span><span class="stat-name">Sertifika</span></div></div></div>
+        <div class="about-content"><p data-key="about_bio1">${about.bio}</p><p data-key="about_bio2">${about.bio2}</p><div class="about-features">${about.highlights.map(h => `<div class="feature"><i class="fas fa-check-circle"></i> ${h.text}</div>`).join('')}</div><a href="#contact" class="btn btn-primary"><span data-key="contact_btn">İletişime Geç</span> <i class="fas fa-arrow-right"></i></a></div>
+        <div class="about-stats"><div class="stat-card"><i class="fas fa-code"></i><div><span class="stat-value">10+</span><span class="stat-name" data-key="stat_projects">Proje</span></div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-value">100+</span><span class="stat-name" data-key="stat_students2">Öğrenci</span></div></div><div class="stat-card"><i class="fas fa-clock"></i><div><span class="stat-value">1200+</span><span class="stat-name" data-key="stat_hours2">Ders Saati</span></div></div><div class="stat-card"><i class="fas fa-certificate"></i><div><span class="stat-value">5</span><span class="stat-name" data-key="stat_cert">Sertifika</span></div></div></div>
       </div>
     </div>
   `;
 }
 
-// HERO RENDER (RESİM GÖSTEREN VERSİYON)
+// HERO RENDER
 function renderHero() {
   const container = document.getElementById('home');
   if (!container) return;
-  
-  // Avatar resmini data.js'den al
   let avatarPath = 'assets/images/resim.jpg';
   if (typeof SITE_DATA !== 'undefined' && SITE_DATA.personal && SITE_DATA.personal.avatar) {
     avatarPath = SITE_DATA.personal.avatar;
   }
-  
   container.innerHTML = `
     <div class="hero-bg"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge"><span class="badge-dot"></span> Hoş Geldiniz</div>
-        <h1 class="hero-title"><span class="gradient-text">Yazılım & Yapay Zeka</span><br>Eğitmeniniz Halil</h1>
-        <p class="hero-desc">Profesyonel yazılım geliştirme ve yapay zeka eğitimleri ile kariyerinizde bir sonraki seviyeye geçin.</p>
-        <div class="hero-buttons"><a href="#courses" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Hemen Başla</a><a href="quiz.html" class="btn btn-outline"><i class="fas fa-brain"></i> Bilgi Testi</a></div>
-        <div class="hero-stats"><div class="stat"><span class="stat-number" data-target="500">0</span><span class="stat-label">Öğrenci</span></div><div class="stat"><span class="stat-number" data-target="1200">0</span><span class="stat-label">Ders Saati</span></div><div class="stat"><span class="stat-number" data-target="98">0</span><span class="stat-label">Başarı Oranı</span></div></div>
+        <div class="hero-badge"><span class="badge-dot"></span> <span data-key="hero_badge">Hoş Geldiniz</span></div>
+        <h1 class="hero-title"><span class="gradient-text" data-key="hero_title1">Yazılım & Yapay Zeka</span><br><span data-key="hero_title2">Eğitmeniniz Halil</span></h1>
+        <p class="hero-desc" data-key="hero_desc">Profesyonel yazılım geliştirme ve yapay zeka eğitimleri ile kariyerinizde bir sonraki seviyeye geçin.</p>
+        <div class="hero-buttons"><a href="#courses" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> <span data-key="hero_btn_start">Hemen Başla</span></a><a href="quiz.html" class="btn btn-outline"><i class="fas fa-brain"></i> <span data-key="hero_btn_quiz">Bilgi Testi</span></a></div>
+        <div class="hero-stats"><div class="stat"><span class="stat-number" data-target="500">0</span><span class="stat-label" data-key="stat_students">Öğrenci</span></div><div class="stat"><span class="stat-number" data-target="1200">0</span><span class="stat-label" data-key="stat_hours">Ders Saati</span></div><div class="stat"><span class="stat-number" data-target="98">0</span><span class="stat-label" data-key="stat_success">Başarı Oranı</span></div></div>
       </div>
       <div class="hero-image">
         <div class="hero-avatar">
           <div class="avatar-ring"></div>
-          <div class="avatar-inner">
-            <img src="${avatarPath}" alt="Halil Samadov" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
-          </div>
+          <div class="avatar-inner"><img src="${avatarPath}" alt="Halil Samadov" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>
         </div>
       </div>
     </div>
@@ -172,10 +269,10 @@ function renderContact() {
   if (!container) return;
   container.innerHTML = `
     <div class="container">
-      <div class="section-header"><span class="section-tag">İletişim</span><h2 class="section-title">Bana<br><span class="gradient-text">Ulaşın</span></h2></div>
+      <div class="section-header"><span class="section-tag" data-key="contact_tag">İletişim</span><h2 class="section-title"><span data-key="contact_title1">Bana</span><br><span class="gradient-text" data-key="contact_title2">Ulaşın</span></h2></div>
       <div class="contact-grid">
-        <div class="contact-info"><h3>Birlikte Çalışalım</h3><p>Yazılım eğitimi, yapay zeka danışmanlığı veya proje teklifleriniz için bana ulaşabilirsiniz.</p><div class="contact-details"><div class="contact-item"><i class="fas fa-envelope"></i><span>semedovxelil259@gmail.com</span></div><div class="contact-item"><i class="fab fa-whatsapp"></i><span>+90 555 095 77 42</span></div><div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>İstanbul, Türkiye</span></div></div><div class="social-links"><a href="https://github.com/Halil668" target="_blank"><i class="fab fa-github"></i></a><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></div></div>
-        <div class="contact-form"><form id="contactForm"><div class="form-group"><input type="text" name="name" placeholder="Ad Soyad" required></div><div class="form-group"><input type="email" name="email" placeholder="E-posta" required></div><div class="form-group"><input type="text" name="subject" placeholder="Konu"></div><div class="form-group"><textarea name="message" rows="5" placeholder="Mesajınız..." required></textarea></div><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Mesaj Gönder</button><div id="formStatus" class="form-status"></div></form></div>
+        <div class="contact-info"><h3 data-key="contact_subtitle">Birlikte Çalışalım</h3><p data-key="contact_desc">Yazılım eğitimi, yapay zeka danışmanlığı veya proje teklifleriniz için bana ulaşabilirsiniz.</p><div class="contact-details"><div class="contact-item"><i class="fas fa-envelope"></i><span>semedovxelil259@gmail.com</span></div><div class="contact-item"><i class="fab fa-whatsapp"></i><span>+90 555 095 77 42</span></div><div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>İstanbul, Türkiye</span></div></div><div class="social-links"><a href="https://github.com/Halil668" target="_blank"><i class="fab fa-github"></i></a><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></div></div>
+        <div class="contact-form"><form id="contactForm"><div class="form-group"><input type="text" name="name" placeholder="Ad Soyad" required></div><div class="form-group"><input type="email" name="email" placeholder="E-posta" required></div><div class="form-group"><input type="text" name="subject" placeholder="Konu"></div><div class="form-group"><textarea name="message" rows="5" placeholder="Mesajınız..." required></textarea></div><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> <span data-key="send_btn">Mesaj Gönder</span></button><div id="formStatus" class="form-status"></div></form></div>
       </div>
     </div>
   `;
@@ -214,7 +311,7 @@ function renderContact() {
 function renderFooter() {
   const container = document.getElementById('footer');
   if (!container) return;
-  container.innerHTML = `<div class="container"><div class="footer-content"><div class="footer-logo"><h3>Halil<span>.</span></h3><p>Yazılım & Yapay Zeka Eğitmeni</p></div><div class="footer-links"><a href="#home">Ana Sayfa</a><a href="#about">Hakkımda</a><a href="#courses">Dersler</a><a href="#ai">Yapay Zeka</a><a href="#contact">İletişim</a></div><div class="footer-copyright"><p>&copy; 2026 Khalil Samadov. Tüm hakları saklıdır.</p></div></div></div>`;
+  container.innerHTML = `<div class="container"><div class="footer-content"><div class="footer-logo"><h3>Halil<span>.</span></h3><p data-key="footer_title">Yazılım & Yapay Zeka Eğitmeni</p></div><div class="footer-links"><a href="#home" data-key="nav_home">Ana Sayfa</a><a href="#about" data-key="nav_about">Hakkımda</a><a href="#courses" data-key="nav_courses">Dersler</a><a href="#ai" data-key="nav_ai">Yapay Zeka</a><a href="#contact" data-key="nav_contact">İletişim</a></div><div class="footer-copyright"><p>&copy; 2026 Khalil Samadov. <span data-key="copyright">Tüm hakları saklıdır.</span></p></div></div></div>`;
 }
 
 // MOBILE MENU
@@ -263,4 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileMenu();
   initCounters();
+  initLanguage();
+  initAppointmentModal();
 });
