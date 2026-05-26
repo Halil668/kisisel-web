@@ -43,7 +43,7 @@ const SITE_DATA = {
       image: "",           // "assets/images/projects/ecommerce.jpg"
       color: "#e0e7ff",    // kart arka plan rengi (isteğe bağlı)
       liveUrl: "https://proje.vercel.app",
-      githubUrl: "https://github.com/sen/proje",
+      githubUrl: "https://github.com/Halil668",
       featured: true
     },
     {
@@ -54,7 +54,7 @@ const SITE_DATA = {
       image: "",
       color: "#dbeafe",
       liveUrl: "",
-      githubUrl: "https://github.com/sen/weather",
+      githubUrl: "https://github.com/Halil668",
       featured: true
     },
     {
@@ -65,7 +65,7 @@ const SITE_DATA = {
       image: "",
       color: "#d1fae5",
       liveUrl: "",
-      githubUrl: "https://github.com/sen/taskmanager",
+      githubUrl: "https://github.com/Halil668",
       featured: false
     },
     {
@@ -76,7 +76,7 @@ const SITE_DATA = {
       image: "",
       color: "#fce7f3",
       liveUrl: "",
-      githubUrl: "https://github.com/sen/blog",
+      githubUrl: "https://github.com/Halil668",
       featured: false
     }
   ],
