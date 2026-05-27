@@ -22,13 +22,13 @@ const SITE_DATA = {
 
   // ─── HAKKIMDA ────────────────────────────────────────────────
   about: {
-    bio: "Merhaba! Ben bir web geliştirici ve eğitmenim. Kullanıcı deneyimini ön planda tutan, performanslı ve ölçeklenebilir web uygulamaları geliştiriyorum. Aynı zamanda yazılım ve yapay zeka eğitimleri veriyorum.",
+    bio: "Merhaba! Ben Khalil Samadov, full-stack web geliştirici ve yazılım eğitmeni. 3+ yıllık yazılım deneyimimin yanında, yapay zeka alanında da eğitimler veriyorum. Öğrencilerime yazılım ve yapay zeka alanında mentorluk yapıyor, onların kariyer yolculuklarında onlara rehberlik ediyorum. Amacım, bildiklerimi en doğru şekilde aktarmak ve sizi de bu alanda ilerletmek",
     bio2: "Yeni teknolojileri yakından takip ediyor, öğrendiklerimi hem projelerimde hem de öğrencilerimle paylaşıyorum.",
     highlights: [
       { icon: "🚀", text: "3+ Yıl Deneyim" },
       { icon: "💼", text: "10+ Tamamlanan Proje" },
       { icon: "🤖", text: "Yapay Zeka Eğitmeni" },
-      { icon: "📚", text: "100+ Öğrenci" }
+      { icon: "📚", text: "Mentorluk" }
     ]
   },
 

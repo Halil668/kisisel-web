@@ -1,6 +1,6 @@
 /* ============================================================
    PROFESSIONAL STYLE SHEET - Eğitmen Halil
-   Dark/Light Mode + Modern Animations + RANDEVU MODAL + DİL DROPDOWN
+   Dark/Light Mode + Modern Animations + RANDEVU MODAL + DİL DROPDOWN + DETAY MODAL
    ============================================================ */
 
 :root {
@@ -161,7 +161,7 @@ body {
   gap: 16px;
 }
 
-/* ========== DİL DROPDOWN MENÜ (YENİ) ========== */
+/* ========== DİL DROPDOWN MENÜ ========== */
 .lang-dropdown {
   position: relative;
 }
@@ -343,7 +343,7 @@ body {
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
-/* ========== RANDEVU MODAL ========== */
+/* ========== MODAL (ORTak) ========== */
 .modal {
   display: none;
   position: fixed;
@@ -371,6 +371,11 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-xl);
   animation: modalFadeIn 0.3s ease;
+}
+
+/* Detay Modal için daha geniş içerik */
+.detail-modal-content {
+  max-width: 700px;
 }
 
 @keyframes modalFadeIn {
@@ -428,6 +433,78 @@ body {
   padding: 24px;
   max-height: calc(90vh - 80px);
   overflow-y: auto;
+}
+
+/* ========== DETAY MODAL İÇERİK STILLERİ ========== */
+.detail-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.detail-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.detail-description {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+}
+
+.detail-section h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-section p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.detail-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.detail-list-item {
+  background: var(--bg-card);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.detail-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.detail-buttons .btn {
+  padding: 12px 28px;
 }
 
 /* ========== HERO SECTION ========== */
@@ -858,6 +935,7 @@ section {
   padding: 32px;
   text-align: center;
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .ai-card:hover {
@@ -899,6 +977,7 @@ section {
   border-radius: 24px;
   overflow: hidden;
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .project-card:hover {
@@ -1190,6 +1269,7 @@ section {
 @media (max-width: 1024px) {
   .hero-title { font-size: 44px; }
   .section-title { font-size: 36px; }
+  .detail-modal-content { max-width: 90%; }
 }
 
 @media (max-width: 768px) {
@@ -1212,10 +1292,10 @@ section {
   .appointment-float { bottom: 100px; right: 20px; }
   .appointment-btn { padding: 10px 18px; font-size: 13px; }
   .modal-content { width: 95%; margin: 20px; }
-  .lang-dropdown-menu {
-    right: -50px;
-    min-width: 150px;
-  }
+  .lang-dropdown-menu { right: -50px; min-width: 150px; }
+  .detail-title { font-size: 22px; }
+  .detail-buttons { flex-direction: column; }
+  .detail-buttons .btn { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 480px) {
