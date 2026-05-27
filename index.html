@@ -9,24 +9,21 @@
   <meta name="author" content="Khalil Samadov">
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Eğitmen Halil | Yazılım & Yapay Zeka Eğitimleri | eğitmen halil">
+  <meta property="og:title" content="Eğitmen Halil | Yazılım & Yapay Zeka Eğitimleri | eğitmen halil |yazılım kursu| yazılım koçu|">
   <meta property="og:description" content="Profesyonel yazılım ve yapay zeka eğitimleri. Sertifika programı, uygulamalı dersler.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://egitmenhalil.com">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome 6 (CDN) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
   <link rel="icon" type="image/png" href="owl.png">
-  <!-- Ana CSS -->
+  
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
   {
@@ -39,13 +36,11 @@
 </head>
 <body>
 
-  <!-- ========== PRELOADER ========== -->
   <div class="preloader" id="preloader">
     <div class="preloader-spinner"></div>
     <p>Yükleniyor...</p>
   </div>
 
-  <!-- ========== NAVBAR ========== -->
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="#" class="logo">H<span>.</span></a>
@@ -58,7 +53,6 @@
         <li><a href="#contact" data-key="nav_contact">İletişim</a></li>
       </ul>
       <div class="nav-actions">
-        <!-- DİL DROPDOWN MENÜ -->
         <div class="lang-dropdown">
           <button class="lang-dropdown-btn" id="langDropdownBtn">
             <i class="fas fa-globe"></i> <span id="selectedLangText">Türkçe</span> <i class="fas fa-chevron-down"></i>
@@ -83,7 +77,6 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#home" data-key="nav_home">Ana Sayfa</a>
     <a href="#about" data-key="nav_about">Hakkımda</a>
@@ -94,7 +87,6 @@
     <a href="quiz.html" class="mobile-quiz-btn"><i class="fas fa-brain"></i> <span data-key="quiz_btn">Sınava Gir</span></a>
   </div>
 
-  <!-- ========== HERO SECTION ========== -->
   <section class="hero" id="home">
     <div class="hero-bg"></div>
     <div class="container">
@@ -144,14 +136,12 @@
     </div>
   </section>
 
-  <!-- ========== RANDEVU BUTONU ========== -->
   <div class="appointment-float" id="appointmentFloat">
     <button class="appointment-btn" id="openAppointmentModal">
       <i class="fas fa-calendar-alt"></i> <span data-key="appointment_btn">Randevu Al</span>
     </button>
   </div>
 
-  <!-- ========== RANDEVU MODAL ========== -->
   <div class="modal" id="appointmentModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,7 +154,6 @@
     </div>
   </div>
 
-  <!-- ========== DETAY MODAL (Kurs/AI/Proje için) ========== -->
   <div class="modal" id="detailModal">
     <div class="modal-content detail-modal-content">
       <div class="modal-header">
@@ -172,12 +161,10 @@
         <button class="modal-close" id="closeDetailModal">&times;</button>
       </div>
       <div class="modal-body" id="detailModalBody">
-        <!-- Detay içeriği dinamik olarak doldurulacak -->
-      </div>
+        </div>
     </div>
   </div>
 
-  <!-- ========== ABOUT SECTION ========== -->
   <section class="about" id="about">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
@@ -186,7 +173,7 @@
       </div>
       <div class="about-grid">
         <div class="about-content" data-aos="fade-right">
-          <p data-key="about_bio1">Merhaba! Ben <strong>Khalil Samadov</strong>, full-stack web geliştirici ve eğitmen. 3+ yıllık yazılım deneyimimin yanında, yapay zeka alanında da eğitimler veriyorum.</p>
+          <p data-key="about_bio1">Merhaba! Ben <strong>Khalil Samadov</strong>, full-stack web geliştirici ve eğitmen. 3+ yıllık yazılım deneyimimin yanında, yapay zeka alanında juga eğitimler veriyorum.</p>
           <p data-key="about_bio2">100'den fazla öğrenciye yazılım ve yapay zeka alanında mentorluk yaptım. Öğrencilerim Türkiye'nin önde gelen teknoloji şirketlerinde çalışıyor veya kendi girişimlerini kuruyor.</p>
           <div class="about-features">
             <div class="feature"><i class="fas fa-check-circle"></i> <span data-key="feature1">3+ Yıl Deneyim</span></div>
@@ -206,7 +193,6 @@
     </div>
   </section>
 
-  <!-- ========== COURSES SECTION ========== -->
   <section class="courses" id="courses">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
@@ -222,7 +208,6 @@
     </div>
   </section>
 
-  <!-- ========== AI EDUCATION SECTION ========== -->
   <section class="ai-education" id="ai">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
@@ -239,7 +224,6 @@
     </div>
   </section>
 
-  <!-- ========== PROJECTS SECTION ========== -->
   <section class="projects" id="projects">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
@@ -250,7 +234,6 @@
     </div>
   </section>
 
-  <!-- ========== CONTACT SECTION ========== -->
   <section class="contact" id="contact">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
@@ -286,7 +269,6 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -298,17 +280,20 @@
           <a href="#ai" data-key="nav_ai">Yapay Zeka</a>
           <a href="#contact" data-key="nav_contact">İletişim</a>
         </div>
-        <div class="footer-copyright"><p>&copy; 2026 Khalil Samadov. <span data-key="copyright">Tüm hakları saklıdır.</span></p></div>
+        <div class="footer-copyright">
+          <p>&copy; 2026 Khalil Samadov. <span data-key="copyright">Tüm hakları saklıdır.</span></p>
+          <p style="font-size: 10px; opacity: 0.5; margin-top: 5px;">
+            <a href="https://www.flaticon.com/free-icons/owl" title="owl icons" target="_blank" style="color: inherit; text-decoration: none;">Owl icons created by Freepik - Flaticon</a>
+          </p>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- WhatsApp Float Button -->
   <a href="https://wa.me/905550957742?text=Merhaba%20Halil%20Hocam,%20sitenizden%20ula%C5%9F%C4%B1yorum.%20E%C4%9Fitimleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="languages.js"></script>
   <script src="data.js"></script>
